@@ -10,15 +10,15 @@ import { WishlistsModule } from './wishlists/wishlists.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: parseInt(process.env.POSTGRES_PORT, 10),
       username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_USER_PASSWORD,
-      database: process.env.POSTGRES_NAME_DB,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       entities: [__dirname + '/**/*.entity{.js, .ts}'],
       synchronize: true,
     }),
