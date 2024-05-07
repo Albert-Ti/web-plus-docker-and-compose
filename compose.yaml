@@ -13,12 +13,16 @@ services:
       db:
         # будет запущен только после того, как сервис db будет считаться здоровым
         condition: service_healthy
+    networks:
+      - net-backend
 
   frontend:
     container_name: post-frontend
     build: ./frontend
     ports:
       - 8081:80
+    networks:
+      - net-frontend
 
   db:
     container_name: postgres
@@ -36,11 +40,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - net-backend
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
+    networks:
+      - net-backend
 
 volumes:
   db-data: {}
+
+networks:
+  net-backend: {}
+  net-frontend: {}
